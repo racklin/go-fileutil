@@ -4,7 +4,6 @@
 package fileutil
 
 import (
-	"os"
 	"testing"
 	"time"
 )
@@ -119,7 +118,7 @@ func TestTempName(t *testing.T) {
 func TestCopy(t *testing.T) {
 	tmp, _ := TempName()
 	err := Copy(TEST_FILE, tmp)
-	defer os.Remove(tmp)
+	defer Remove(tmp)
 	if err != nil {
 		t.Errorf("TestCopy: ", err)
 	}
