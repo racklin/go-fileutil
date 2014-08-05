@@ -6,7 +6,12 @@ Simple and without get into nested if statement hell.
 import fileutil "github.com/racklin/go-fileutil"
 ```
 
-## Check File Exists
+## Document
+[godoc.org](http://godoc.org/github.com/racklin/go-fileutil)
+
+## Examples
+
+### Check File Exists
 ```go
 func Exists(filename string) (bool, error)
 ```
@@ -15,9 +20,9 @@ Example:
     exists, err := fileutil.Exists("/etc/passwd")
 ```
 
-## FileInfo
+### FileInfo
 
-### Filesize
+#### Filesize
 ```go
 func Size(filename string) (int64, error)
 ```
@@ -26,7 +31,7 @@ Example:
     size, err := fileutil.Size("/etc/passwd")
 ```
 
-### File Modified Time
+#### File Modified Time
 ```go
 func ModTime(filename string) (time.Time, error)
 ```
@@ -43,19 +48,19 @@ Example:
     mtime, err := fileutil.ModTimeUnix("/etc/passwd")
 ```
 
-### File Mode and Permission
+#### File Mode and Permission
 ```go
 func Mode(filename string) (os.FileMode, error)
 func Perm(filename string) (os.FileMode, error)
 ```
 
-## File Read And Write
-### Bytes Operations
+### File Read And Write
+#### Bytes Operations
 ```go
 func Read(filename string) ([]byte, error)
 func Write(filename string, content []byte) error
 ```
-### String Operations
+#### String Operations
 ```go
 func ReadString(filename string) (string, error)
 func WriteString(filename, content string) error
@@ -67,7 +72,7 @@ Example:
         fileutil.AppendString("/var/log/test.log", message)
     }
 ```
-## Alias
+### Alias
 If you are PHPer , feels like coming home (file_put_contents/file_get_contents).
 ```go
 func Basename(filename string) string
@@ -80,7 +85,7 @@ func PutContents(filename, content string) error
 func AppendContents(filename, content string) error
 ```
 
-## File Copy
+### File Copy
 Copies a file from source to destination.
 If source and destination files exist and the same, return success.
 Otherise, using hard link between the two files. If that fail, copy the file contents.
@@ -92,7 +97,7 @@ Example:
 err := fileutil.Copy("/etc/passwd", "/tmp/passwd")
 ```
 
-## File Glob and Sort
+### File Glob and Sort
 Find returns the FilesInfo([]FileInfo) of all files matching pattern
 ```go
 func Find(pattern string) (FilesInfo, error)
@@ -120,11 +125,12 @@ Example3: Sorting result files
     files.SortByName()
 ```
 
-## Exec
+### Exec
 Runs the command and returns its standard output as string.
 ```go
 func Exec(name string, arg ...string) (string, error)
 ```
 
-# FULL Document
-[godoc.org document](http://godoc.org/github.com/racklin/go-fileutil)
+## License
+
+http://racklin.mit-license.org/
