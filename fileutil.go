@@ -249,44 +249,44 @@ func Find(pattern string) (FilesInfo, error) {
 	return files, err
 }
 
-type ByName struct{ FilesInfo }
+type byName struct{ FilesInfo }
 
-type BySize struct{ FilesInfo }
+type bySize struct{ FilesInfo }
 
-type ByModTime struct{ FilesInfo }
+type byModTime struct{ FilesInfo }
 
-func (s ByName) Less(i, j int) bool { return s.FilesInfo[i].Name() < s.FilesInfo[j].Name() }
-func (s BySize) Less(i, j int) bool { return s.FilesInfo[i].Size() < s.FilesInfo[j].Size() }
-func (s ByModTime) Less(i, j int) bool {
+func (s byName) Less(i, j int) bool { return s.FilesInfo[i].Name() < s.FilesInfo[j].Name() }
+func (s bySize) Less(i, j int) bool { return s.FilesInfo[i].Size() < s.FilesInfo[j].Size() }
+func (s byModTime) Less(i, j int) bool {
 	return s.FilesInfo[i].ModTime().Before(s.FilesInfo[j].ModTime())
 }
 
 // SortByName sorts a slice of files by filename in increasing order.
 func (fis FilesInfo) SortByName() {
-	sort.Sort(ByName{fis})
+	sort.Sort(byName{fis})
 }
 
 // SortBySize sorts a slice of files by filesize in increasing order.
 func (fis FilesInfo) SortBySize() {
-	sort.Sort(BySize{fis})
+	sort.Sort(bySize{fis})
 }
 
 // SortByModTime sorts a slice of files by file modified time in increasing order.
 func (fis FilesInfo) SortByModTime() {
-	sort.Sort(ByModTime{fis})
+	sort.Sort(byModTime{fis})
 }
 
 // SortByNameReverse sorts a slice of files by filename in decreasing order.
 func (fis FilesInfo) SortByNameReverse() {
-	sort.Sort(sort.Reverse(ByName{fis}))
+	sort.Sort(sort.Reverse(byName{fis}))
 }
 
 // SortBySizeReverse sorts a slice of files by filesize in decreasing order.
 func (fis FilesInfo) SortBySizeReverse() {
-	sort.Sort(sort.Reverse(BySize{fis}))
+	sort.Sort(sort.Reverse(bySize{fis}))
 }
 
 // SortByModTimeReverse sorts a slice of files by file modified time in decreasing order.
 func (fis FilesInfo) SortByModTimeReverse() {
-	sort.Sort(sort.Reverse(ByModTime{fis}))
+	sort.Sort(sort.Reverse(byModTime{fis}))
 }
