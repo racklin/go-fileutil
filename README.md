@@ -68,7 +68,7 @@ Example:
     }
 ```
 ### Alias
-If you are PHPer , feels coming like coming home (file_put_contents/file_get_contents).
+If you are PHPer , feels like coming home (file_put_contents/file_get_contents).
 ```go
 func GetContents(filename string) (string, error)
 func PutContents(filename, content string) error
