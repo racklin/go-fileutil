@@ -277,6 +277,22 @@ func Rmdir(path string) error {
 	return os.RemoveAll(path)
 }
 
+// Mkdir creates a new directory with the specified name and permission bits.
+func Mkdir(name string, perm os.FileMode) error {
+	return os.Mkdir(name, perm)
+}
+
+// MkdirAll creates a directory named path, along with any necessary parents.
+func MkdirAll(path string, perm os.FileMode) error {
+	return os.MkdirAll(path, perm)
+}
+
+// MkdirP creates a directory named path, along with any necessary parents.
+// MkdirP is equivalent to MkdirAll.
+func MkdirP(path string, perm os.FileMode) error {
+	return os.MkdirAll(path, perm)
+}
+
 // Chmod changes the mode of the named file to mode.
 func Chmod(name string, mode os.FileMode) error {
 	return os.Chmod(name, mode)
