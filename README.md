@@ -67,9 +67,14 @@ Example:
         fileutil.AppendString("/var/log/test.log", message)
     }
 ```
-### Alias
+## Alias
 If you are PHPer , feels like coming home (file_put_contents/file_get_contents).
 ```go
+func Basename(filename string) string
+func Dirname(filename string) string
+func Extname(filename string) string
+func Unlink(path string) error
+func Rmdir(path string) error
 func GetContents(filename string) (string, error)
 func PutContents(filename, content string) error
 func AppendContents(filename, content string) error
@@ -114,3 +119,12 @@ Example3: Sorting result files
     files, err := fileutil.Find("/tmp/*")
     files.SortByName()
 ```
+
+## Exec
+Runs the command and returns its standard output as string.
+```go
+func Exec(name string, arg ...string) (string, error)
+```
+
+# FULL Document
+[godoc.org document](http://godoc.org/github.com/racklin/go-fileutil)

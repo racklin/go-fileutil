@@ -8,6 +8,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"sort"
 	"time"
@@ -37,6 +38,21 @@ func Exists(filename string) (bool, error) {
 		}
 	}
 	return true, nil
+}
+
+// Basename returns the last element of path
+func Basename(path string) string {
+	return filepath.Base(path)
+}
+
+// Dirname returns all but the last element of path, typically the path's directory
+func Dirname(path string) string {
+	return filepath.Dir(path)
+}
+
+// Extname returns the file name extension used by path
+func Extname(path string) string {
+	return filepath.Ext(path)
 }
 
 // Size return the size of the given filename.
@@ -228,7 +244,47 @@ func Copy(source, dest string) (err error) {
 
 	// syncing file
 	err = out.Sync()
+
+	// trying chmod destination file
+	err = out.Chmod(sfi.Mode())
 	return
+}
+
+// Rename renames (moves) a file
+func Rename(oldpath, newpath string) error {
+	return os.Rename(oldpath, newpath)
+}
+
+// Remove removes the named file or directory.
+func Remove(name string) error {
+	return os.Remove(name)
+}
+
+// RemoveAll removes path and any children it contains.
+func RemoveAll(path string) error {
+	return os.RemoveAll(path)
+}
+
+// Unlink removes the named file or directory.
+// Unlink is equivalent to Remove.
+func Unlink(name string) error {
+	return os.Remove(name)
+}
+
+// Rmdir removes path and any children it contains.
+// Rmdir is equivalent to RemoveAll.
+func Rmdir(path string) error {
+	return os.RemoveAll(path)
+}
+
+// Chmod changes the mode of the named file to mode.
+func Chmod(name string, mode os.FileMode) error {
+	return os.Chmod(name, mode)
+}
+
+// Chown changes the numeric uid and gid of the named file.
+func Chown(name string, uid, gid int) error {
+	return os.Chown(name, uid, gid)
 }
 
 // Find returns the FilesInfo([]FileInfo) of all files matching pattern or nil if there is no matching file. The syntax of patterns is the same as in Match. The pattern may describe hierarchical names such as /usr/*/bin/ed (assuming the Separator is '/').
@@ -289,4 +345,11 @@ func (fis FilesInfo) SortBySizeReverse() {
 // SortByModTimeReverse sorts a slice of files by file modified time in decreasing order.
 func (fis FilesInfo) SortByModTimeReverse() {
 	sort.Sort(sort.Reverse(byModTime{fis}))
+}
+
+// Exec runs the command and returns its standard output as string
+func Exec(name string, arg ...string) (string, error) {
+	cmd := exec.Command(name, arg...)
+	out, err := cmd.Output()
+	return string(out), err
 }

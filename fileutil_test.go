@@ -30,6 +30,28 @@ func TestNonExists(t *testing.T) {
 	}
 }
 
+func TestBasename(t *testing.T) {
+	b := Basename("/a/b/c")
+	if b != "c" {
+		t.Errorf("TestBasename: %s should been 'c'", "/a/b/c")
+	}
+}
+
+func TestDirname(t *testing.T) {
+	b := Dirname("/a/b/c")
+	if b != "/a/b" {
+		t.Errorf("TestDirname: %s should been '/a/b'", "/a/b/c")
+	}
+}
+
+func TestExtname(t *testing.T) {
+	b := Extname(TEST_FILE)
+
+	if b != ".go" {
+		t.Errorf("TestExtname: %s should been '.go'", TEST_FILE)
+	}
+}
+
 func TestSize(t *testing.T) {
 	s, _ := Size(TEST_FILE)
 	if s <= 0 {
@@ -114,5 +136,12 @@ func TestFindAndSort(t *testing.T) {
 	_, err := Find("/tmp/*")
 	if err != nil {
 		t.Errorf("TestFindAndSort: ", err)
+	}
+}
+
+func TestExec(t *testing.T) {
+	_, err := Exec("/bin/date")
+	if err != nil {
+		t.Errorf("TestExec: ", err)
 	}
 }
