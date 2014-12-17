@@ -12,6 +12,9 @@ import (
 	"path/filepath"
 	"sort"
 	"time"
+        "encoding/hex"
+        "crypto/md5"
+        "crypto/sha1"
 )
 
 const (
@@ -369,3 +372,40 @@ func Exec(name string, arg ...string) (string, error) {
 	out, err := cmd.Output()
 	return string(out), err
 }
+
+// Md5 returns a MD5 hash of file
+func Md5(filename string) (string, error) {
+
+      file, err := os.Open(filename)
+      defer file.Close()
+
+      if err != nil {
+         return "", err
+      }
+
+      hash := md5.New()
+      io.Copy(hash, file);
+
+      result := hash.Sum(nil)
+
+      return hex.EncodeToString(result), nil
+}
+
+// Sha1 returns a SHA1 hash of file
+func Sha1(filename string) (string, error) {
+
+      file, err := os.Open(filename)
+      defer file.Close()
+
+      if err != nil {
+         return "", err
+      }
+
+      hash := sha1.New()
+      io.Copy(hash, file);
+
+      result := hash.Sum(nil)
+
+      return hex.EncodeToString(result), nil
+}
+

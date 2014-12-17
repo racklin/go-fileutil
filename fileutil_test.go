@@ -144,3 +144,24 @@ func TestExec(t *testing.T) {
 		t.Errorf("TestExec: ", err)
 	}
 }
+
+func TestMd5(t *testing.T) {
+        hash, err := Md5("README.md")
+	if err != nil {
+		t.Errorf("TestMd5: ", err)
+	}
+
+        if hash != "c12f43453dd47d9853bb90812df2aef4" {
+		t.Errorf("TestMd5: MD5 hash of README.md mismatched.")
+        }
+}
+func TestSha1(t *testing.T) {
+        hash, err := Sha1("README.md")
+	if err != nil {
+		t.Errorf("TestSha1: ", err)
+	}
+
+        if hash != "f6a9ef82ede6f4eaedd274903e83b1ee7bf4a994" {
+		t.Errorf("TestSha1: SHA1 hash of README.md mismatched.")
+        }
+}
